@@ -1,43 +1,93 @@
 import React from "react";
 import './BottomNav.css';
-import { NavLink } from "react-router-dom";
-import Dropdown from 'react-dropdown';
 import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 function BottomNav () {
   return (
-    <nav className="wrapper">
-      <Navbar variant="light" expand="lg">
+    <div className="wrapper">
+      <Navbar variant="light" expand="lg" className="wrapper">
         <Container fluid>
-          <Navbar.Collapse id="navbar-dark-example">
             <Nav>
-              <NavDropdown as="ButtonGroup" key="up"id="dropdown-button-drop-up-button-drop-up nav-dropdown-dark-example" drop="up" variant="secondary" title="마이페이지" menuVariant="light">
-                <NavDropdown.Item href="/Ingredients/Account_Management">계정 관리</NavDropdown.Item>
-                <NavDropdown.Item href="/Ingredients/Personal_Fridge">나의 냉장고</NavDropdown.Item>
-                <NavDropdown.Item href="/Ingredients/Personal_Cookware">나의 조리기구</NavDropdown.Item>
-                <NavDropdown.Item href="/Ingredients/Cooking_Basket">요리 장바구니</NavDropdown.Item>
-
+              <NavDropdown id="dropdown-button-drop-up-button-drop-up" drop="up" variant="secondary" title="마이페이지" menuVariant="light">
+                {IngredientsList.map((list) => {
+                  return (
+                    <NavDropdown.Item href={list.link}>{list.text}</NavDropdown.Item>
+                  );
+                })}
               </NavDropdown>
             </Nav>
             <Nav>
-              <NavDropdown as="ButtonGroup" key="up"id="dropdown-button-drop-up nav-dropdown-dark-example" drop="up" variant="secondary" title="음식만들기" menuVariant="light">
-                <NavDropdown.Item href="/MakingFood/Todays_Recipes">오늘의 레시피</NavDropdown.Item>
-                <NavDropdown.Item href="/MakingFood/Best_Recipes">베스트 레시피</NavDropdown.Item>
-                <NavDropdown.Item href="/MakingFood/All_Recipes">전체 레시피</NavDropdown.Item>
-                <NavDropdown.Item href="/MakingFood/Recipes_Registration">레시피 등록</NavDropdown.Item>
+              <NavDropdown id="dropdown-button-drop-up" drop="up" variant="secondary" title="음식만들기" menuVariant="light">
+                {MakingFoodList.map((list) => {
+                  return (
+                    <NavDropdown.Item href={list.link}>{list.text}</NavDropdown.Item>
+                  );
+                })}
               </NavDropdown>
             </Nav>
             <Nav>
-              <NavDropdown as="ButtonGroup" key="up"id="dropdown-button-drop-up nav-dropdown-dark-example" drop="up" variant="secondary" title="관리자페이지" menuVariant="light">
-                <NavDropdown.Item href="/Admin/Admin_Page">관리자 페이지</NavDropdown.Item>
+              <NavDropdown id="dropdown-button-drop-up" drop="up" variant="secondary" title="관리자페이지" menuVariant="light">
+                {AdminList.map((list) => {
+                  return (
+                    <NavDropdown.Item href={list.link}>{list.text}</NavDropdown.Item>
+                  );
+                })}
               </NavDropdown>
             </Nav>
-          </Navbar.Collapse>
         </Container>
       </Navbar>
-    </nav>
+    </div>
   );
 };
 
 export default BottomNav;
+
+const baseIngredientsUrl = '/Ingredients/';
+const baseMakingFoodUrl = '/MakingFood/';
+const baseAdminUrl = '/Admin/';
+
+const IngredientsList = [
+  {
+    link: `${baseIngredientsUrl}Account_Management`,
+    text: '계정 관리',
+  },
+  {
+    link: `${baseIngredientsUrl}Personal_Fridge`,
+    text: '나의 냉장고',
+  },
+  {
+    link: `${baseIngredientsUrl}Personal_Cookware`,
+    text: '나의 조리기구',
+  },
+  {
+    link: `${baseIngredientsUrl}Cooking_Basket`,
+    text: '요리 장바구니',
+  },
+];
+
+const MakingFoodList = [
+  {
+    link: `${baseMakingFoodUrl}Todays_Recipes`,
+    text: '오늘의 레시피',
+  },
+  {
+    link: `${baseMakingFoodUrl}Best_Recipes`,
+    text: '베스트 레시피',
+  },
+  {
+    link: `${baseMakingFoodUrl}All_Recipes`,
+    text: '전체 레시피',
+  },
+  {
+    link: `${baseMakingFoodUrl}Recipes_Registration`,
+    text: '레시피 등록',
+  },
+];
+
+const AdminList = [
+    {
+      link: `${baseAdminUrl}Admin_Page`,
+      text: '관리자 페이지',
+    },
+  ];
